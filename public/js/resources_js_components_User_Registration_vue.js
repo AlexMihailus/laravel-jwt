@@ -53,6 +53,8 @@ __webpack_require__.r(__webpack_exports__);
       password_confirmation: ""
     };
   },
+  mounted: function mounted() {// console.log(localStorage.getItem('access_token'));
+  },
   methods: {
     store: function store() {
       axios.post("/api/users", {
