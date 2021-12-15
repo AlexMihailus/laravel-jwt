@@ -43,27 +43,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Registration",
   data: function data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      password_confirmation: ""
+      name: null,
+      email: null,
+      password: null,
+      password_confirmation: null,
+      error: null
     };
   },
-  mounted: function mounted() {// console.log(localStorage.getItem('access_token'));
-  },
+  mounted: function mounted() {},
   methods: {
     store: function store() {
+      var _this = this;
+
       axios.post("/api/users", {
         name: this.name,
         email: this.email,
         password: this.password,
         password_confirmation: this.password_confirmation
       }).then(function (res) {
-        console.log(res);
+        localStorage.setItem("access_token", res.data.access_token);
+
+        _this.$router.push({
+          name: "user.personal"
+        });
+      })["catch"](function (error) {
+        _this.error = error.response.data.error;
       });
     }
   }
@@ -255,6 +264,10 @@ var render = function () {
           },
         },
       }),
+      _vm._v(" "),
+      _vm.error
+        ? _c("div", { staticClass: "text-danger" }, [_vm._v(_vm._s(_vm.error))])
+        : _vm._e(),
     ]),
   ])
 }

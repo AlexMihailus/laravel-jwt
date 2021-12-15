@@ -19,12 +19,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Login",
   data: function data() {
     return {
-      email: "",
-      password: ""
+      email: null,
+      password: null,
+      error: null
     };
   },
   methods: {
@@ -35,11 +47,13 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password
       }).then(function (res) {
-        localStorage.setItem('access_token', res.data.access_token);
+        localStorage.setItem("access_token", res.data.access_token);
 
         _this.$router.push({
-          name: 'user.personal'
+          name: "user.personal"
         });
+      })["catch"](function (error) {
+        _this.error = error.response.data.error;
       });
     }
   }
@@ -186,6 +200,10 @@ var render = function () {
         },
       },
     }),
+    _vm._v(" "),
+    _vm.error
+      ? _c("div", { staticClass: "text-danger" }, [_vm._v(_vm._s(this.error))])
+      : _vm._e(),
   ])
 }
 var staticRenderFns = []
